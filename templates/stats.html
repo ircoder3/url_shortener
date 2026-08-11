@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics - {{ short_code }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container glass-panel stats-container">
+    <div class="stats-header">
+      <a href="/" class="back-link">← Back to Shortener</a>
+      <span class="badge">Live Analytics</span>
+    </div>
+
+    <h1>📊 Link Dashboard</h1>
+    <p class="subtitle">Real-time stats for <strong>/{{ short_code }}</strong></p>
+
+    <!-- Key Metrics Grid -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <span class="metric-value">{{ clicks }}</span>
+        <span class="metric-label">Total Clicks</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value small">{{ created_at }}</span>
+        <span class="metric-label">Created On</span>
+      </div>
+    </div>
+
+    <!-- Link Details Card -->
+    <div class="detail-card">
+      <div class="detail-group">
+        <label>Shortened Link</label>
+        <div class="short-url-box">
+          <a id="stats-short-url" href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+          <button id="copy-stats-btn" onclick="copyShortUrl('{{ short_url }}')">Copy</button>
+        </div>
+      </div>
+
+      <div class="detail-group">
+        <label>Original Target URL</label>
+        <a href="{{ original_url }}" target="_blank" class="original-url-link">{{ original_url }}</a>
+      </div>
+    </div>
+
+    <!-- QR Code Preview -->
+    <div class="qr-box">
+      <p class="qr-label">QR Code</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ short_url }}" alt="QR Code">
+    </div>
+  </div>
+
+  <script>
+    function copyShortUrl(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById("copy-stats-btn");
+        btn.textContent = "Copied! ✓";
+        setTimeout(() => (btn.textContent = "Copy"), 2000);
+      });
+    }
+  </script>
+</body>
+</html>

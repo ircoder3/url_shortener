@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container glass-panel">
+    <h1>🔗 URL Shortener</h1>
+    <p class="subtitle">Shrink your links and generate QR codes instantly.</p>
+
+    <form id="shorten-form">
+      <input type="url" id="url-input" placeholder="https://example.com/very/long/link" required>
+      <input type="text" id="custom-code-input" placeholder="Custom alias (optional, e.g., 'my-link')">
+      <button type="submit">Shorten</button>
+    </form>
+
+    <div id="result" class="result hidden">
+      <p>Your short URL is ready!</p>
+      <div class="short-url-box">
+        <a id="short-url-link" href="#" target="_blank"></a>
+        <button id="copy-btn">Copy</button>
+      </div>
+      
+      <!-- New QR Code Section -->
+      <div class="qr-box">
+        <img id="qr-code" src="" alt="QR Code" class="hidden">
+      </div>
+
+      <a id="stats-link" class="stats-link" href="#" target="_blank">View stats →</a>
+    </div>
+
+    <div id="error" class="error hidden"></div>
+  </div>
+
+  <!-- New Recent Links Section -->
+  <div class="history-container glass-panel hidden" id="history-container">
+    <h3>Recent Links</h3>
+    <ul id="history-list"></ul>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
